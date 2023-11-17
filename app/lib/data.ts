@@ -168,10 +168,11 @@ export async function fetchInvoiceById(id: string) {
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,
     }));
-
+    
     return invoice[0];
+    
   } catch (error) {
-    console.error('Database Error:', error);
+    console.log('Failed to fetch invoice')
   }
 }
 
@@ -220,12 +221,15 @@ export async function fetchFilteredCustomers(query: string) {
       total_paid: formatCurrency(customer.total_paid),
     }));
 
+    console.log('CUSTOMERS: ', customers);
     return customers;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
   }
 }
+
+
 
 export async function getUser(email: string) {
   try {
