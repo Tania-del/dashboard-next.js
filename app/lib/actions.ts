@@ -6,7 +6,7 @@ import { z } from 'zod'
 
 export type State = {
     errors?: {
-        customerId: string[];
+        customerId?: string[];
         amount?: string[];
         status?: string[];
     };
@@ -27,7 +27,7 @@ const CreateInvoice = InvoiceShema.omit({ id: true, date: true })
 const UpdateInvoice = InvoiceShema.omit({ date: true, id: true });
 
 
-export async function createInvoice(prevState: State, formData: FormData,) {
+export async function createInvoice(prevState: State, formData: FormData)  {
     const validatedFields = CreateInvoice.safeParse({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
@@ -82,6 +82,7 @@ export async function updateInvoice(id: string, formData: FormData) {
     } 
     revalidatePath('/dashboard/invoices')
     redirect('/dashboard/invoices')
+
 }
 
 export async function deleteInvoice(id: string) {
